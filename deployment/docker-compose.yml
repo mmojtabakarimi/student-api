@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  student_app:
+    build:
+      context: ../
+      dockerfile: deployment/app.Dockerfile
+    working_dir: /var/www
+    command: sh deployment/app.sh
+    restart: always          
+    hostname: student-app
+    volumes:
+      - ../:/var/www
+    environment:
+      APP_ENV: local
+      COMPOSER_ALLOW_SUPERUSER: 1
+    networks:
+      web-koodak_wp-net:
+        ipv4_address: 172.30.10.50
+
+networks:
+  web-koodak_wp-net:
+    external: true
+
+
